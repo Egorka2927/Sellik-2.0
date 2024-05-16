@@ -39,19 +39,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(request ->
-//                        new CorsConfiguration().applyPermitDefaultValues()))
-//                .csrf(csrf -> csrf.ignoringRequestMatchers("/login", "/register",
-//                        "/create-listing", "/user-profile/**"))
-//                .authorizeRequests()
-//                .requestMatchers("/listing-info/**", "/user-profile/**", "/create-listing/**").authenticated()
-//                .requestMatchers("/admin/**").hasRole("ADMIN") // Prefix ROLE is not necessary
-//                .anyRequest().permitAll()
-//                .and()
-//                .formLogin(Customizer.withDefaults());
                 .csrf(AbstractHttpConfigurer::disable)
-//                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(request ->
-//                        new CorsConfiguration().applyPermitDefaultValues()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -61,17 +49,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("*"));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
