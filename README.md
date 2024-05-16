@@ -1,2 +1,2 @@
-# Sellik-2.0
-Sharing platform for students. Not done
+# Sellik
+API for the student sharing platform
